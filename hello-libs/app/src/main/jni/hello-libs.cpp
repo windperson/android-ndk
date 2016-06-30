@@ -20,6 +20,7 @@
 #include <android/log.h>
 #include <gmath.h>
 #include <gperf.h>
+#include <gadd.h>
 
 #define LOGI(...) \
   ((void)__android_log_print(ANDROID_LOG_INFO, "hell-libs::", __VA_ARGS__))
@@ -44,5 +45,8 @@ Java_com_example_hellolibs_MainActivity_stringFromJNI(JNIEnv *env, jobject thiz)
 
     LOGI("calculation time: %" PRIu64, ticks);
 
+    unsigned short x= 1;
+    unsigned short y = 2;
+    LOGI("add function = %d", add_num(x, y));
     return env->NewStringUTF("Hello from JNI!");
 }

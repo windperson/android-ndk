@@ -26,6 +26,12 @@ model {
                     sharedLibraryFile = file("${lib_distribution_root}/gperf/lib/${targetPlatform.getName()}/libgperf.so")
                 }
             }
+            gadd {
+                headers.srcDir "${lib_distribution_root}/gadd/include"
+                binaries.withType(SharedLibraryBinary) {
+                    sharedLibraryFile = file("${lib_distribution_root}/gadd/lib/${targetPlatform.getName()}/libgadd.so")
+                }
+            }
         }
     }
     android {
@@ -56,6 +62,7 @@ model {
                         library 'gmath' linkage 'shared'
                         // if gperf were *.a, change shared --> static
                         library 'gperf' linkage 'shared'
+                        library 'gadd' linkage 'shared'
                     }
                 }
                 jniLibs {
@@ -69,6 +76,7 @@ model {
                     source {
                         srcDir "${lib_distribution_root}/gmath/lib"
                         srcDir "${lib_distribution_root}/gperf/lib"
+                        srcDir "${lib_distribution_root}/gadd/lib"
                     }
                 }
             }
@@ -96,5 +104,6 @@ tasks.whenTaskAdded { task ->
     if (task.name.contains('compile')) {
         task.dependsOn ':gmath:distributeLib'
         task.dependsOn ':gperf:distributeLib'
+        task.dependsOn ':gadd:distributeLib'
     }
 }
